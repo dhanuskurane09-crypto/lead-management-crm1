@@ -1,122 +1,220 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+// import "./App.css";
+
+// function App() {
+//   return (
+//     <div className="app">
+//       <header className="app-header">
+//         <div className="brand">
+//           <div className="brand-icon">L</div>
+//           <div>
+//             <h1>LeadFlow CRM</h1>
+//             <p>Lead Management System</p>
+//           </div>
+//         </div>
+
+//         <div className="header-label">Mini CRM</div>
+//       </header>
+
+//       <main className="main-content">
+//         <section className="welcome-section">
+//           <div>
+//             <p className="eyebrow">OVERVIEW</p>
+//             <h2>Lead Management Dashboard</h2>
+//             <p className="subtitle">
+//               Manage your business leads and track their progress from one
+//               place.
+//             </p>
+//           </div>
+//         </section>
+
+//         <section className="dashboard-section">
+//           <h3>Dashboard Summary</h3>
+
+//           <div className="summary-grid">
+//             <div className="summary-card">
+//               <span className="summary-icon">▦</span>
+//               <p>Total Leads</p>
+//               <h4>0</h4>
+//             </div>
+
+//             <div className="summary-card">
+//               <span className="summary-icon">＋</span>
+//               <p>New Leads</p>
+//               <h4>0</h4>
+//             </div>
+
+//             <div className="summary-card">
+//               <span className="summary-icon">✓</span>
+//               <p>Qualified Leads</p>
+//               <h4>0</h4>
+//             </div>
+
+//             <div className="summary-card">
+//               <span className="summary-icon">↗</span>
+//               <p>Converted Leads</p>
+//               <h4>0</h4>
+//             </div>
+//           </div>
+//         </section>
+
+//         <section className="leads-section">
+//           <div className="section-heading">
+//             <div>
+//               <h3>All Leads</h3>
+//               <p className="subtitle">
+//                 View and manage your business contacts.
+//               </p>
+//             </div>
+//           </div>
+
+//           <div className="empty-state">
+//             <div className="empty-icon">＋</div>
+//             <h3>Your lead list is ready</h3>
+//             <p>
+//               Your leads will appear here when we implement the lead creation
+//               feature.
+//             </p>
+//           </div>
+//         </section>
+//       </main>
+
+//       <footer className="app-footer">
+//         LeadFlow CRM · Lead Management Mini Project
+//       </footer>
+//     </div>
+//   );
+// }
+
+// export default App;
+
+import "./App.css";
+import mockLeads from "./data/mockLeads";
+
+const summaryItems = [
+  {
+    label: "Total Leads",
+    icon: "▦",
+    getCount: (leads) => leads.length,
+  },
+  {
+    label: "New Leads",
+    icon: "＋",
+    getCount: (leads) =>
+      leads.filter((lead) => lead.status === "New").length,
+  },
+  {
+    label: "Qualified Leads",
+    icon: "✓",
+    getCount: (leads) =>
+      leads.filter((lead) => lead.status === "Qualified").length,
+  },
+  {
+    label: "Converted Leads",
+    icon: "↗",
+    getCount: (leads) =>
+      leads.filter((lead) => lead.status === "Converted").length,
+  },
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const leads = mockLeads;
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app">
+      <header className="app-header">
+        <div className="brand">
+          <div className="brand-icon">L</div>
+          <div>
+            <h1>LeadFlow CRM</h1>
+            <p>Lead Management System</p>
+          </div>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
+
+        <div className="header-label">Mini CRM</div>
+      </header>
+
+      <main className="main-content">
+        <section className="welcome-section">
+          <p className="eyebrow">OVERVIEW</p>
+          <h2>Lead Management Dashboard</h2>
+          <p className="subtitle">
+            Manage your business leads and track their progress
+            from one place.
           </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+        </section>
 
-      <div className="ticks"></div>
+        <section className="dashboard-section">
+          <h3>Dashboard Summary</h3>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+          <div className="summary-grid">
+            {summaryItems.map((item) => (
+              <div className="summary-card" key={item.label}>
+                <span className="summary-icon">{item.icon}</span>
+                <p>{item.label}</p>
+                <h4>{item.getCount(leads)}</h4>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        <section className="leads-section">
+          <div className="section-heading">
+            <div>
+              <h3>All Leads</h3>
+              <p className="subtitle">
+                View your sample business contacts.
+              </p>
+            </div>
+            <span className="header-label">
+              {leads.length} records
+            </span>
+          </div>
+
+          <div className="table-container">
+            <table className="lead-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Company</th>
+                  <th>Job Title</th>
+                  <th>Source</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {leads.map((lead) => (
+                  <tr key={lead.id}>
+                    <td>
+                      <strong>
+                        {lead.firstName} {lead.lastName}
+                      </strong>
+                    </td>
+                    <td>{lead.email}</td>
+                    <td>{lead.company}</td>
+                    <td>{lead.jobTitle}</td>
+                    <td>{lead.source}</td>
+                    <td>
+                      <span
+                        className={`status-badge status-${lead.status.toLowerCase()}`}
+                      >
+                        {lead.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+
+      <footer className="app-footer">
+        LeadFlow CRM · Lead Management Mini Project
+      </footer>
+    </div>
+  );
 }
 
-export default App
+export default App;
